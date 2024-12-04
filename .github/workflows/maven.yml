@@ -26,7 +26,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      id: build-step
       continue-on-error: true
       run: mvn -B package --file pom.xml
+    - name: Notify if tests failed
+      if: steps.build-step.outcome == 'failure'
+      run: echo "Notify commiter"
     - name: Deploy
       run: echo "Deploy to Preview"
