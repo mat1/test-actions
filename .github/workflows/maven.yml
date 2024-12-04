@@ -17,6 +17,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
@@ -26,7 +27,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      continue-on-error: true
       run: mvn -B package --file pom.xml
     - name: Deploy
       run: echo "Deploy to Preview"
